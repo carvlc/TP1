@@ -10,16 +10,46 @@
 PVector A;
 PVector B;
 PVector C;
+PVector D;
+Vector AB;
+Vector BC;
+Vector CD;
+Vector DA;
 
 public void setup(){
   size(400,400);
   
-  A = new PVector(-1, -2);
-  B = new PVector(4, -1);
-  C = new PVector(5, 2);
+  A = new PVector(-10, -20);
+  B = new PVector(40, -10);
+  C = new PVector(50, 20);
   
+  AB = new Vector(A, B);
+  BC = new Vector(B, C);
+  calcularPuntoD();
+  CD = new Vector(C,D);
+  DA = new Vector(D,A);
 }
 
 public void draw(){
-  
+  background(255);
+  translate(width/2, height/2);
+  stroke(0);
+  strokeWeight(1);
+  AB.display();
+  BC.display();
+  CD.display();
+  DA.display();
+  fill(0);
+  textSize(10);
+  text("A", A.x, A.y);
+  text("B", B.x, B.y);
+  text("C", C.x, C.y); 
+  text("D", D.x, D.y);
+
+
+}
+
+public void calcularPuntoD(){
+  PVector aux = BC.restarVector(C,B);
+  D = AB.sumarVector(A,aux);
 }

@@ -3,26 +3,27 @@ class Vector{
   private PVector destino;
   
   public Vector(){
-    
   }
-  
   public Vector(PVector origen, PVector destino){
     this.origen = origen;
     this.destino = destino;
   }
   
-  public Vector sumarVector(Vector otro){
-    return otro;
+  
+  public PVector sumarVector(PVector vectorA, PVector vectorB){
+    return PVector.add(vectorA, vectorB);
   }
   
-  public Vector restarVector(Vector otro) {
-    return otro;
+  public PVector restarVector(PVector vectorA, PVector vectorB) {
+    return PVector.sub(vectorA, vectorB);
   }
   
-  public void dibujar() {
+  public void display() {
     stroke(0);
     line(origen.x, origen.y, destino.x, destino.y);
   }
+  
+  
   
   public void setOrigen(PVector origen){
     this.origen = origen;
