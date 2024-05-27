@@ -5,47 +5,39 @@
 //Esto es una mecánica: Detección y ataque de un gameObject a otro dentro del campo de visión.
 //Modele el diagrama de clases, el diagrama de elementos visibles y la historia de usuario.
 
-Vector vectorPersonaje;
-PVector posicionTesoro;
-Vector vectorPersonajeTesoro;
+Vector vectorPlayerEnemy;
 Enemy evilMario;
 Player bob;
+PImage fondo;
+PVector aim;
 
 public void setup(){
   size(400,400);
-  vectorPersonaje = new Vector(new PVector(0,0), new PVector(10,0));
-  posicionTesoro = new PVector(width/2,height/2);
-  vectorPersonajeTesoro = new Vector();
-  
+  fondo = loadImage("grillaw.jpg");
+  vectorPlayerEnemy = new Vector();
   evilMario = new Enemy();
   bob = new Player();
 }
 
 public void draw(){
-  background(255);
-  //dibujarTesoro();
-  vectorPersonaje.setOrigen(new PVector(mouseX, mouseY));
-  vectorPersonaje.display();
-  dibujarVectorPersonajeTesoro();
-  escribirMensaje();
-  evilMario.display();
+  image(fondo, width/2, height/2, width,height);
+  bob.vector.setOrigen(new PVector(mouseX,mouseY));
+  dibujarVectorPlayerEnemy();
   bob.display();
+  evilMario.display();
+  aim = PVector.sub(bob.vector.getOrigen(),evilMario.posicion).normalize();
+  evilMario.shoot(bob.vector.getOrigen(),evilMario.posicion, aim);
+  escribirMensaje();
 }
 
-public void dibujarVectorPersonajeTesoro(){
-  vectorPersonajeTesoro.setOrigen(vectorPersonaje.getOrigen());
-  vectorPersonajeTesoro.setDestino(PVector.sub(posicionTesoro, vectorPersonaje.getOrigen()).normalize().mult(50));
-  vectorPersonajeTesoro.display();
+public void dibujarVectorPlayerEnemy(){
+  vectorPlayerEnemy.setOrigen(bob.vector.getOrigen());
+  vectorPlayerEnemy.setDestino(PVector.sub(evilMario.posicion, bob.vector.getOrigen()));
+  vectorPlayerEnemy.display();
 }
-
-
-//public void dibujarTesoro(){
-//  strokeWeight(10);
-//  point(posicionTesoro.x,posicionTesoro.y);
-//}
 
 public void escribirMensaje(){
-  float dotProduct = vectorPersonaje.obtenerProductoPunto(vectorPersonajeTesoro);
+  float dotProduct = bob.vector.obtenerProductoPunto(vectorPlayerEnemy);
   println(dotProduct);
   textSize(20);
   fill(0);
