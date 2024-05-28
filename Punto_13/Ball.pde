@@ -1,6 +1,6 @@
 class Ball extends GameObject{
-  PVector velocity;
-  float speed;
+  private PVector velocity;
+  private float speed;
   
   public Ball(){
     this.speed = 5;
