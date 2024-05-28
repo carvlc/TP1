@@ -8,7 +8,6 @@ class Player extends GameObject{
   }
   
   public void display(){
-    background(50);
     image(sprite, mouseX,mouseY, anchoSprite, altoSprite);
   }
 }
